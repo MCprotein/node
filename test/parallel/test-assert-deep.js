@@ -1336,3 +1336,37 @@ if (common.hasCrypto) {
   const weakSet2 = new WeakSet();
   assertNotDeepOrStrict(weakSet1, weakSet2);
 }
+
+// Comparing two different URL instances
+{
+  const a = new URL('http://foo');
+  const b = new URL('http://bar');
+
+  assertNotDeepOrStrict(a, b);
+}
+
+// Comparing two same URL instances
+{
+  const a = new URL('http://foo');
+  const b = new URL('http://foo');
+
+  assertDeepAndStrictEqual(a, b);
+}
+
+// Comparing two different URL instances
+{
+  const a = new URL('http://foo');
+  const b = new URL('http://foo');
+  a.bar = 1;
+  b.bar = 2;
+  assertNotDeepOrStrict(a, b);
+}
+
+// Comparing two same URL instances
+{
+  const a = new URL('http://foo');
+  const b = new URL('http://foo');
+  a.bar = 1;
+  b.bar = 1;
+  assertDeepAndStrictEqual(a, b);
+}
